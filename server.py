@@ -3,8 +3,8 @@ import os
 import socket
 
 # tcp_ip = '18.204.102.146'
-tcp_ip = '127.0.0.1'
-tcp_port = 3001
+tcp_ip = '18.204.102.146'
+tcp_port = 7502
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((tcp_ip, tcp_port))

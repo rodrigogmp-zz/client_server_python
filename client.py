@@ -5,7 +5,7 @@ import time
 import os
 
 
-tcp_ip = '18.204.102.146'
+#tcp_ip = '18.204.102.146'
 #tcp_ip = '127.0.0.1'
 tcp_port = 7502
 
@@ -16,7 +16,7 @@ s.connect((tcp_ip, tcp_port))
 def download():
 	data = s.recv(1024)
 	print (data.decode())
-	tamanho_txt = 0
+	tamanho_txt = float(data.decode()[64:69])
 	inicio = time.time()
 
 	while True:
@@ -26,12 +26,13 @@ def download():
 		#if data.decode() == msg:
 		#print(data.decode())
 		if 'Download concluido com sucesso!' in data.decode():
-			tamanho_txt = float(data.decode()[51:56])
+			print(data.decode())
 			break
+
 	fim = time.time()
 	tempo_total = fim-inicio
 	print ("Tempo do download:", tempo_total, "segundos.\n")
-	print ("Taxa de download:", ((tamanho_txt/tempo_total)/1024)/1024, "mb/s\n")
+	print ("Taxa média de download:", (tamanho_txt/tempo_total), "mb/s\n")
 	
 	
 #end

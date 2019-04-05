@@ -29,18 +29,18 @@ while True:
 		print ('Metrica executada com sucesso!\n')
 	elif (data == str.encode('2')):
 		print ('Metrica: Download')
-		message = "Requisicao aceita. Download em andamento:\n"
-		conn.send(str.encode(message))
-		f = open('texto.txt','rb')
 		tamanho_txt = os.path.getsize('texto.txt')
 		tamanho_txt = (tamanho_txt/1024)/1024
+		message = "Requisicao aceita. Download em andamento...\nTamanho do arquivo: "+ str(tamanho_txt)[0:5] + " mb.\n"
+		conn.send(str.encode(message))
+		f = open('texto.txt','rb')
 		l = f.read(1024)
 		#servidor enviando o arquivo para o cliente
 		while (l):
 			print(l)
 			conn.send(l)
 			l = f.read(1024)
-		message = "Download concluido com sucesso!\nTamanho do arquivo:"+ str(tamanho_txt) + "mb."
+		message = "Download concluido com sucesso!\n"
 		conn.send(str.encode(message))
 		print ('Metrica executada com sucesso!\n')
 		f.close()

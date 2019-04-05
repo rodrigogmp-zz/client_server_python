@@ -3,11 +3,16 @@ import os
 import socket
 
 # tcp_ip = '18.204.102.146'
+<<<<<<< HEAD
 tcp_ip = '127.0.0.1'
 tcp_port = 7502
+=======
+#tcp_ip = '18.204.102.146'
+tcp_port = 7015
+>>>>>>> e3ed220f7aaf86e59abe907b24bc08b9d8d24199
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((tcp_ip, tcp_port))
+s.bind(('', tcp_port))
 s.listen(5)
 
 conn, addr = s.accept()
@@ -32,8 +37,11 @@ while True:
 		message = "Requisicao aceita. Download em andamento:\n"
 		conn.send(str.encode(message))
 		f = open('texto.txt','rb')
+<<<<<<< HEAD
 		tamanho_txt = os.path.getsize('texto.txt')
 		tamanho_txt = (tamanho_txt/1024)/1024
+=======
+>>>>>>> e3ed220f7aaf86e59abe907b24bc08b9d8d24199
 		l = f.read(1024)
 		#servidor enviando o arquivo para o cliente
 		while (l):

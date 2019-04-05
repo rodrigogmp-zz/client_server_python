@@ -3,11 +3,11 @@ import os
 import socket
 
 # tcp_ip = '18.204.102.146'
-tcp_ip = '18.204.102.146'
-tcp_port = 7502
+#tcp_ip = '18.204.102.146'
+tcp_port = 7015
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((tcp_ip, tcp_port))
+s.bind(('', tcp_port))
 s.listen(5)
 
 conn, addr = s.accept()

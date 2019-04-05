@@ -31,7 +31,7 @@ while True:
 		print ('Metrica: Download')
 		message = "Requisicao aceita. Download em andamento:\n"
 		conn.send(str.encode(message))
-		f = open('teste.txt','rb')
+		f = open('texto.txt','rb')
 		l = f.read(1024)
 		#servidor enviando o arquivo para o cliente
 		while (l):

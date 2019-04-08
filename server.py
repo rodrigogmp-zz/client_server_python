@@ -36,7 +36,6 @@ while True:
 		print ('\nMetrica executada com sucesso!\n')
 		file.close()
 	elif (data == str.encode('3')):
-		#data = s.recv(1024)
 		while True:
 			data = conn.recv(1024) #Recebendo dados em buffers de 1024
 			if 'Upload concluido com sucesso!' in data.decode(): 

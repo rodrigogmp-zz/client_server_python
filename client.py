@@ -5,8 +5,8 @@ import time
 import os
 
 
-#tcp_ip = '177.105.60.80'
-tcp_ip = '127.0.0.1'
+tcp_ip = '177.105.60.80'
+#tcp_ip = '127.0.0.1'
 tcp_port = 7502
 
 s = socket.socket(socket.AF_INET,
@@ -47,7 +47,7 @@ def Upload(menu):
 	file = open('texto.txt','rb')
 	inicio = time.time()
 	l = file.read(1024)
-	while (l): #servidor enviando o arquivo para o cliente
+	while (l): #cliente enviando o arquivo para o server
 		s.send(l)
 		print(l.decode())
 		l = file.read(1024)

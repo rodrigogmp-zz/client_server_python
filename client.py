@@ -5,7 +5,7 @@ import time
 import os
 
 
-#tcp_ip = '18.204.102.146'
+#tcp_ip = '177.105.60.80'
 tcp_ip = '127.0.0.1'
 tcp_port = 7502
 
@@ -32,7 +32,6 @@ def Download(menu):
 		data = s.recv(1024) #Recebendo dados em buffers de 1024
 
 		if 'Download concluido com sucesso!' in data.decode(): 
-			print(data.decode())
 			break
 
 	fim = time.time()
@@ -40,10 +39,30 @@ def Download(menu):
 	print ("Tempo do download:", tempo_total, "segundos.\n")
 	print ("Taxa média de download:", (tamanho_txt/tempo_total), "mb/s\n")
 
+def Upload(menu):
+	print ('Metrica: Upload\n')
+	s.send(str.encode(menu))
+	tamanho_txt = os.path.getsize('texto.txt') #Calculando tamanho do arquivo de download em bytes
+	tamanho_txt = (tamanho_txt/1024)/1024 #Convertendo tamanho para mb
+	file = open('texto.txt','rb')
+	inicio = time.time()
+	l = file.read(1024)
+	while (l): #servidor enviando o arquivo para o cliente
+		s.send(l)
+		print(l.decode())
+		l = file.read(1024)
+	fim = time.time()
+	message = "Upload concluido com sucesso!\n"
+	s.send(str.encode(message))
+	tempo_total = fim-inicio
+	print (message, "\nTempo de upload:", tempo_total, "segundos\n")
+	print ("Taxa média de upload:", (tamanho_txt/tempo_total), "mb/s\n")
+	file.close()
+
 
 while True:
 	print("-------------")
-	print ("Menu:\n1- RTT\n2- Download\nOutro- Sair")
+	print ("Menu:\n1- RTT\n2- Download\n3- Upload\nOutro- Sair")
 	print("-------------")
 	menu = input("=> Escolha uma metrica: ")
 	if menu == '1': #RTT
@@ -52,6 +71,9 @@ while True:
 	elif menu == '2': #Download
 		print ("\nEnviando requisicao para Download...\n")
 		Download(menu)
+	elif menu == '3':
+		print ("\nIniciando upload...\n")
+		Upload(menu)
 	else:
 		s.send(str.encode(menu))
 		break

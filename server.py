@@ -2,7 +2,7 @@
 import os
 import socket
 
-#tcp_ip = '127.0.0.1'
+tcp_ip = '127.0.0.1'
 tcp_port = 7502
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,7 +18,7 @@ while True:
 		print ('Metrica: RTT')
 		message = "Requisicao aceita.\n"
 		conn.send(str.encode(message)) #Enviando resposta
-		print ('Metrica executada com sucesso!\n')
+		print ('\nMetrica executada com sucesso!\n')
 	elif (data == str.encode('2')): #Download
 		print ('Metrica: Download')
 		tamanho_txt = os.path.getsize('texto.txt') #Calculando tamanho do arquivo de download em bytes
@@ -33,8 +33,16 @@ while True:
 			l = file.read(1024)
 		message = "Download concluido com sucesso!\n"
 		conn.send(str.encode(message)) #Mensagem para o client encerrar o loop de recepção de dados.
-		print ('Metrica executada com sucesso!\n')
+		print ('\nMetrica executada com sucesso!\n')
 		file.close()
+	elif (data == str.encode('3')):
+		#data = s.recv(1024)
+		while True:
+			data = conn.recv(1024) #Recebendo dados em buffers de 1024
+			if 'Upload concluido com sucesso!' in data.decode(): 
+				break
+
+		print("Métrica executada com sucesso!\n")
 	else:
 		break
 print("Servidor fechado.\n")

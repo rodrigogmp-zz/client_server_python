@@ -2,7 +2,6 @@
 import os
 import socket
 
-tcp_ip = '18.204.102.146'
 #tcp_ip = '127.0.0.1'
 tcp_port = 7502
 
@@ -12,38 +11,30 @@ s.listen(5)
 
 conn, addr = s.accept()
 
-#~ #print 'Endereco de conexao: ', addr
-
-#~ while True:
-
-
-# data = conn.recv(1024)
-
 while True:
 	print("Escutando...\n") 
 	data = conn.recv(1024)
-	if (data == str.encode('1')):
+	if (data == str.encode('1')): #RTT
 		print ('Metrica: RTT')
 		message = "Requisicao aceita.\n"
-		conn.send(str.encode(message))
+		conn.send(str.encode(message)) #Enviando resposta
 		print ('Metrica executada com sucesso!\n')
-	elif (data == str.encode('2')):
+	elif (data == str.encode('2')): #Download
 		print ('Metrica: Download')
-		tamanho_txt = os.path.getsize('texto.txt')
-		tamanho_txt = (tamanho_txt/1024)/1024
+		tamanho_txt = os.path.getsize('texto.txt') #Calculando tamanho do arquivo de download em bytes
+		tamanho_txt = (tamanho_txt/1024)/1024 #Convertendo tamanho para mb
 		message = "Requisicao aceita. Download em andamento...\nTamanho do arquivo: "+ str(tamanho_txt)[0:5] + " mb.\n"
-		conn.send(str.encode(message))
-		f = open('texto.txt','rb')
-		l = f.read(1024)
-		#servidor enviando o arquivo para o cliente
-		while (l):
+		conn.send(str.encode(message)) #Enviando mensagem de requisição aceita e o tamanho do arquivo ao client.
+		file = open('texto.txt','rb')
+		l = file.read(1024)
+		while (l): #servidor enviando o arquivo para o cliente
 			print(l)
 			conn.send(l)
-			l = f.read(1024)
+			l = file.read(1024)
 		message = "Download concluido com sucesso!\n"
-		conn.send(str.encode(message))
+		conn.send(str.encode(message)) #Mensagem para o client encerrar o loop de recepção de dados.
 		print ('Metrica executada com sucesso!\n')
-		f.close()
+		file.close()
 	else:
 		break
 print("Servidor fechado.\n")

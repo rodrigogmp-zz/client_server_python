@@ -28,7 +28,6 @@ while True:
 		file = open('texto.txt','rb')
 		l = file.read(1024)
 		while (l): #servidor enviando o arquivo para o cliente
-			print(l)
 			conn.send(l)
 			l = file.read(1024)
 		message = "Download concluido com sucesso!\n"

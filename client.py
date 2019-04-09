@@ -49,7 +49,6 @@ def Upload(menu):
 	l = file.read(1024)
 	while (l): #cliente enviando o arquivo para o server
 		s.send(l)
-		print(l.decode())
 		l = file.read(1024)
 	fim = time.time()
 	message = "Upload concluido com sucesso!\n"
